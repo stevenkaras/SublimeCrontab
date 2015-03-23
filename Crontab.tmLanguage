@@ -46,7 +46,7 @@
 				</dict>
 			</dict>
 			<key>match</key>
-			<string>^([\*0-9,\-\/]+)\s+([\*0-9,\-\/]+)\s+([\*0-9,\-\/]+)\s+([\*0-9,\-\/]+)\s+([\*0-9,\-\/]+)\s+(.*)$\n?</string>
+			<string>^\s*([^\#\s\t]+)\s+([^\s\t]+)\s+([^\s\t]+)\s+([^\s\t]+)\s+([^\s\t]+)\s+([^\#]*)(.*)$\n?</string>
 			<key>name</key>
 			<string>meta.declaration.crontab</string>
 		</dict>
