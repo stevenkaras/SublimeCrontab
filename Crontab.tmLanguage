@@ -17,6 +17,25 @@
 				<key>1</key>
 				<dict>
 					<key>name</key>
+					<string>keyword.at.crontab</string>
+				</dict>
+				<key>2</key>
+				<dict>
+					<key>name</key>
+					<string>string.command.crontab</string>
+				</dict>
+			</dict>
+			<key>match</key>
+			<string>^\s*(\@[^\s]+)\s+(.*)$\n?</string>
+			<key>name</key>
+			<string>meta.declaration.crontab</string>
+		</dict>
+		<dict>
+			<key>captures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
 					<string>keyword.minute.crontab</string>
 				</dict>
 				<key>2</key>
