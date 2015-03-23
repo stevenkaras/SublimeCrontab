@@ -17,27 +17,27 @@
 				<key>1</key>
 				<dict>
 					<key>name</key>
-					<string>meta.minute.crontab</string>
+					<string>keyword.minute.crontab</string>
 				</dict>
 				<key>2</key>
 				<dict>
 					<key>name</key>
-					<string>meta.hour.crontab</string>
+					<string>constant.hour.crontab</string>
 				</dict>
 				<key>3</key>
 				<dict>
 					<key>name</key>
-					<string>meta.dayofmonth.crontab</string>
+					<string>class.dayofmonth.crontab</string>
 				</dict>
 				<key>4</key>
 				<dict>
 					<key>name</key>
-					<string>meta.month.crontab</string>
+					<string>keyword.month.crontab</string>
 				</dict>
 				<key>5</key>
 				<dict>
 					<key>name</key>
-					<string>meta.dayofweek.crontab</string>
+					<string>constant.dayofweek.crontab</string>
 				</dict>
 				<key>6</key>
 				<dict>
@@ -46,7 +46,7 @@
 				</dict>
 			</dict>
 			<key>match</key>
-			<string>^\s*([^\#\s\t]+)\s+([^\s\t]+)\s+([^\s\t]+)\s+([^\s\t]+)\s+([^\s\t]+)\s+([^\#]*)(.*)$\n?</string>
+			<string>^\s*([^\#\s\t]+)\s+([^\s\t]+)\s+([^\s\t]+)\s+([^\s\t]+)\s+([^\s\t]+)\s+(.*)$\n?</string>
 			<key>name</key>
 			<string>meta.declaration.crontab</string>
 		</dict>
