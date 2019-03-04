@@ -1,0 +1,137 @@
+%YAML 1.2
+---
+# http://www.sublimetext.com/docs/3/syntax.html
+name: Crontab
+file_extensions:
+  - crontab
+  - cron
+scope: source.crontab
+variables:
+  num_range: '\d{1,2}(?:-\d{1,2}(?:\/\d{1,2})?)?'
+  num_list: '\*(?:\/\d{1,2})?|{{num_range}}(?:,{{num_range}})*'
+  month: '\*|{{num_list}}|(?i:jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)'
+  weekday: '{{num_list}}|(?i:mon|tue|wed|thu|fri|sat|sun)'
+contexts:
+  main:
+    - match: '#.*$'
+      scope: comment.line
+    - match: '(\S+)\s*(=)'
+      push: envvar
+      captures:
+        1: variable.other.crontab
+        2: keyword.operator.assignment.crontab
+    - match: '(\@reboot)\s+'
+      captures:
+        1: support.constant.reboot.crontab
+      push: command
+    - match: '(\@yearly)\s+'
+      captures:
+        1: support.constant.yearly.crontab
+      push: command
+    - match: '(\@annually)\s+'
+      captures:
+        1: support.constant.annually.crontab
+      push: command
+    - match: '(\@monthly)\s+'
+      captures:
+        1: support.constant.monthly.crontab
+      push: command
+    - match: '(\@weekly)\s+'
+      captures:
+        1: support.constant.weekly.crontab
+      push: command
+    - match: '(\@daily)\s+'
+      captures:
+        1: support.constant.daily.crontab
+      push: command
+    - match: '(\@midnight)\s+'
+      captures:
+        1: support.constant.midnight.crontab
+      push: command
+    - match: '(\@hourly)\s+'
+      captures:
+        1: support.constant.hourly.crontab
+      push: command
+    - match: '({{num_list}})\s+'
+      captures:
+        1: keyword.minute.crontab
+      push: timespec
+    - match: '\S.*$'
+      scope: invalid.illegal.crontab
+
+  # This regex is quicker, but makes it impossible to do more advanced symbol matching
+  # num_range: '\*|\d{1,2}|\d{1,2}-\d{1-2}(?:/\d{1,2})?'
+  num_range:
+    - meta_scope: keyword.minute.crontab
+    - match: '\*'
+      scope: constant.character.
+    - match: '\d{1,2}'
+      scope: constant.numeric.minutes.crontab
+    - match: '\s'
+      pop: true
+
+  timespec:
+    - meta_scope: meta.declaration.crontab
+    - match: '({{num_list}})\s+({{num_list}})\s+({{month}})\s+({{weekday}})\s+'
+      captures:
+        1: keyword.hour.crontab
+        2: keyword.day.crontab
+        3: keyword.month.crontab
+        4: keyword.weekday.crontab
+      set: command
+    - match: '$'
+      pop: true
+
+  command:
+    - meta_scope: meta.declaration.crontab
+    - match: '(?=[^%])'
+      set: command_def
+    - match: '%.*'
+      scope: invalid.illegal.crontab
+    - match: '$'
+      pop: true
+
+  command_def:
+    - meta_scope: meta.declaration.crontab string.command.crontab
+    - match: '\\.'
+      scope: constant.character.escape.crontab
+    - match: '%'
+      scope: keyword.operator.stdin.crontab
+      set: stdin
+    - match: '$'
+      pop: true
+
+  stdin:
+    - meta_scope: meta.declaration.crontab string.stdin.crontab
+    - match: '\\.'
+      scope: constant.character.escape.crontab
+    - match: '%'
+      scope: keyword.operator.newline.crontab
+    - match: '$'
+      pop: true
+
+  envvar:
+    - meta_scope: meta.envvar.crontab
+    - match: '\"'
+      push: double_quote
+    - match: "\'"
+      push: single_quote
+    - match: '\S.*\S'
+      pop: true
+      scope: string.unquoted.crontab
+    - match: '$'
+      pop: true
+
+  single_quote:
+    - meta_scope: string.quoted.single.crontab
+    - match: '\\.'
+      scope: constant.character.escape.crontab
+    - match: "\'"
+      pop: true
+
+  double_quote:
+    - meta_scope: string.quoted.double.crontab
+    - match: '\\.'
+      scope: constant.character.escape.crontab
+    - match: '\"'
+      pop: true

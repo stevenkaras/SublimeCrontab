@@ -1,54 +1,41 @@
-Crontab Syntax Highlighting
-===========================
+# Crontab Syntax Highlighting
 
-Installation
-------------
+Sublime Text 3 crontab syntax highlighting.
 
-1. Open Sublime Text 2/3
-2. Locate Preferences in the menu, click on "Browse Packages..."
-3. Create a folder named Crontab and copy everything from this repository in that folder
-4. Enjoy
+Currently based off the [Vixie Cron][vixie-cron] syntax (Default in Ubuntu)
 
+[vixie-cron]: https://launchpad.net/ubuntu/+source/cron
 
-Optional
------------
+## Installation - [Package Control][package-control]
 
-A recent addition was using a few different sytax types like `constant` and `keyword`
-in the language definition syntax. This is a bit of a hack because Sublime Text does not
-seem to have an [easy way for a plugin to suggest colors][1] for the language scopes. In
-addition, it is hard to know what scopes will be available in a theme, so with most
-`meta.hour.crontab` and `meta.minute.crontab` will show up the same. This led me to believe
-the plugin was 'broken' when it was first installed because everything was one color.
+[package-control]: https://sublime.wbond.net/
 
-The syntax will look acceptable with most themes with these revised scopes:
+* Bring up the Command Palette (Cmd + Shift + P on OS X, Ctrl + Shift + P on Windows or Linux).
+* Select `Package Control: Install Package`
+* Select `Crontab Syntax` when the list appears.
+* Package Control will automatically keep Crontab Syntax up to date with the latest version.
 
-	keyword.at.crontab
-	keyword.minute.crontab
-	constant.hour.crontab
-	class.dayofmonth.crontab
-	keyword.month.crontab
-	constant.dayofweek.crontab
-	string.command.crontab
+## Installation - Manual
 
-This will at least give it some syntax coloring with most themes - but still allow themes
-to override the colors.
+1. Locate Preferences in the menu, click on "Browse Packages..."
+2. Clone this repo into your Packages folder
 
-If you would like to make the colors look more like the `vim darkbg` style,
-add the definitions from the included `optional-add-to-theme.xml` file to your theme, or
-perhaps use the [Sublime Theme Editor](http://tmtheme-editor.herokuapp.com/) to customize.
+    git clone http://github.com/stevenkaras/SublimeCrontab.git
 
-![vim dark][2]
+## Contributing
 
+Pull requests welcome.
 
+I doubt I'll ever do these on my own, but they're a good place to start:
 
+- set up a separate syntax for system crontabs
+- set up variant syntaxes for other cron implementations
+- helper commands for debugging cron schedules
 
+# Credits
+ 
+Loosely based on SublimeCrontab by [clarkewd][clarkewd], [WheresWardy][WheresWardy], and [kevinior][kevinior].
 
-Credits
--------
-
-[WheresWardy](https://github.com/WheresWardy)
-[kevinior](https://github.com/kevinior)
-
-
-[1]: http://stackoverflow.com/questions/19235792/change-color-of-specific-words-in-sublime-text-3
-[2]: http://puu.sh/gMCo3/df588859e4.png "screenshot"
+[clarkewd]: https://github.com/clarkewd
+[WheresWardy]: https://github.com/WheresWardy
+[kevinior]: https://github.com/kevinior

@@ -1,0 +1,103 @@
+# SYNTAX TEST "Packages/SublimeCrontab/Crontab.sublime-text"
+
+# <- source.crontab
+
+# Testing comments
+# <- comment.line
+
+      # comments can have leading whitespace
+#    ^ - comment.line
+#     ^ comment.line
+
+SHELL=/bin/sh
+# <- source.crontab meta.envvar.crontab
+#^^^^ variable.other.crontab
+
+# 
+  SHELL =    a bbbbb   
+# <- - meta.envvar.crontab
+# ^ meta.envvar.crontab
+# ^^^^^ meta.envvar.crontab variable.other.crontab
+#       ^ keyword.operator.assignment.crontab
+#      ^^^^^^ meta.envvar.crontab - variable.other.crontab string.unquoted.crontab
+#            ^^^^^^^ meta.envvar.crontab string.unquoted.crontab
+#                   ^^^ - meta.envvar.crontab string.unquoted.crontab
+
+# there should be a zero-width illegal syntax in this:
+SHELL=
+#     ^ - meta.envvar.crontab
+
+SHELL=" a b c "
+#     ^^^^^^^^^ string.quoted.double.crontab
+
+SHELL=' a b c '
+#     ^^^^^^^^^ string.quoted.single.crontab
+
+# This next lines should be highlighted as special values:
+@reboot   echo "runs once on cron(8) daemon start"
+# <- meta.declaration.crontab
+# <- - string.command.crontab
+#^^^^^^ - string.command.crontab
+#^^^^^^ support.constant.reboot.crontab
+#         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.command.crontab
+@yearly   echo "equivalent to 0 0 1 1 *"
+#^^^^^^ support.constant.yearly.crontab
+@annually echo "equivalent to 0 0 1 1 *"
+#^^^^^^^^ support.constant.annually.crontab
+@monthly  echo "equivalent to 0 0 1 * *"
+#^^^^^^^ support.constant.monthly.crontab
+@weekly   echo "equivalent to 0 0 * * 0"
+#^^^^^^ support.constant.weekly.crontab
+@daily    echo "equivalent to 0 0 * * *"
+#^^^^^ support.constant.daily.crontab
+@midnight echo "equivalent to 0 0 * * *"
+#^^^^^^^^ support.constant.midnight.crontab
+@hourly   echo "equivalent to 0 * * * *"
+#^^^^^^ support.constant.hourly.crontab
+
+@hourly % lacks a command to execute
+#       ^ invalid.illegal.crontab
+
+@hourly \%technically correct
+#       ^^ constant.character.escape.crontab
+#       ^^^^^^^^^^^^^^^^^^^^^ string.command.crontab
+
+@hourly echo \% not stdin
+#            ^^ constant.character.escape.crontab
+#       ^^^^^^^^^^^^^^^^^ string.command.crontab
+
+@hourly echo arg %stdin% next line \% literal
+#       ^ string.command.crontab
+#                ^ keyword.operator.stdin.crontab
+#                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.stdin.crontab
+#                      ^ keyword.operator.newline.crontab
+#                                  ^^ constant.character.escape.crontab
+
+junk lines
+# <- invalid.illegal.crontab
+
+# Variations on scheduling syntax:
+
+* * * * * echo "runs every minute"
+# <- meta.declaration.crontab
+# <- keyword.minute.crontab
+# ^ keyword.hour.crontab
+#   ^ keyword.day.crontab
+#     ^ keyword.month.crontab
+#       ^ keyword.weekday.crontab
+#         ^^^^^^^^^^^^^^^^^^^^^^^^ string.command.crontab
+0 0 0 0 0 echo "constraints for all schedules"
+
+1,2 * * * * echo "union of minutes"
+1-5 * * * * echo "range of minutes"
+1-5,10,20-30 0 * * * echo "list of ranges"
+
+0-30/2 * * * * echo "step over range"
+*/5 * * * * echo "step over unconstrained"
+
+* * * jan * echo "month names"
+* * * * mon echo "weekday names"
+
+# command syntax variations:
+
+0 0 * * * cat % this is stdin % this is a second line of stdin

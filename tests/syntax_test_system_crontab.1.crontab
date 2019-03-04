@@ -1,0 +1,37 @@
+# Testing comments
+
+# This should be a comment
+# As should this
+
+SHELL=/bin/sh
+PYTHONPATH=~/dev/mypythonrepo
+
+# This next lines should be highlighted as special values:
+@reboot   echo "runs once on cron(8) daemon start"
+@yearly   echo "equivalent to 0 0 1 1 *"
+@annually echo "equivalent to 0 0 1 1 *"
+@monthly  echo "equivalent to 0 0 1 * *"
+@weekly   echo "equivalent to 0 0 * * 0"
+@daily    echo "equivalent to 0 0 * * *"
+@midnight echo "equivalent to 0 0 * * *"
+@hourly   echo "equivalent to 0 * * * *"
+
+# Variations on scheduling syntax:
+
+* * * * * echo "runs every minute"
+0 0 0 0 0 echo "constraints for all schedules"
+
+1,2 0 * * * echo "union of minutes"
+1-5 0 * * * echo "range of minutes"
+1-5,10,20-30 0 * * * echo "list of ranges"
+
+0-30/2 * * * * echo "step over range"
+*/5 * * * * echo "step over unconstrained"
+
+* * * jan * echo "month names"
+* * * * mon echo "weekday names"
+
+# command syntax variations:
+
+0 0 * * * cat % this is stdin % this is a second line of stdin
+0 0 * * * echo \% this is not on stdin

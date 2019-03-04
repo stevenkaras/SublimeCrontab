@@ -5,7 +5,7 @@
 	<key>name</key>
 	<string>Symbol List: Crontab</string>
 	<key>scope</key>
-	<string>crontab string.command.crontab</string>
+	<string>source.crontab string.command.crontab</string>
 	<key>settings</key>
 	<dict>
 		<key>showInSymbolList</key>
